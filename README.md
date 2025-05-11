@@ -6,3 +6,5 @@ It's ambitious, but the ultimate goal is to create software that can at least si
 I can't thank World Tree Research enough for his huge work (https://discord.gg/27Wz4QB).
 
 There's a sheet who contains database of all models and maps in Xenoblade 3 : https://docs.google.com/spreadsheets/d/12wgzG4gIgd8iY6GyYw_ObsUTDjE0ZvE2CMNtX5WrWzs
+
+https://xenobladedata.github.io/
