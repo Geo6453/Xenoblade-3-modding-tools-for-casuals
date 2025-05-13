@@ -1,13 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
+#include <QtWidgets>
+#include <QDesktopServices>
 
 class MainWindow : public QMainWindow
 {
@@ -17,7 +12,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+
 private:
-    Ui::MainWindow *ui;
+    QMenu *menuFiles;
+    QMenu *menuEdition;
+    QMenu *menuDisplay;
+    QMenu *menuHelp;
+    QDockWidget *dockWidget;
+    QWidget *dockWidgetContents;
+
+    QTabWidget *tabWidget; // Tabs of DockLeft
+    QDockWidget *dockLeft; // Lateral Pannel
+    QDockWidget *dockDown; // Status Pannel
 };
 #endif // MAINWINDOW_H
