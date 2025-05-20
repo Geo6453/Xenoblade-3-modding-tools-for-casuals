@@ -19,6 +19,7 @@ private:
     QMenu *menuEdition;
     QMenu *menuDisplay;
     QMenu *menuHelp;
+    QMenu *toggleTheme;
     QDockWidget *dockWidget;
     QWidget *dockWidgetContents;
 

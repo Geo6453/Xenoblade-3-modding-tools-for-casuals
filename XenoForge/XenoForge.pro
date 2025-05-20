@@ -15,8 +15,7 @@ SOURCES += \
 HEADERS += \
     mainwindow.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 TRANSLATIONS += \
     XenoForge_fr_FR.ts
