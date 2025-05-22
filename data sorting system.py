@@ -90,15 +90,18 @@ def process(config, excel_path, game_path):
                 ]
                 
                 # Create folders name
+                dest_folder = os.path.join(game_path, task['new_folder'])
                 folder_name = f"{file_id} ({' - '.join(descriptions)})" if descriptions else file_id
-                folder_path = os.path.join(game_path, task['new_folder'], sanitize_name(folder_name))
+                folder_path = os.path.join(dest_folder, sanitize_name(folder_name))
                 os.makedirs(folder_path, exist_ok=True)
                 
                 # Search and move files
-                for file in os.listdir(game_path):
-                    if file.split('.')[0] == file_id:
-                        shutil.move(os.path.join(game_path, file), os.path.join(folder_path, file))
-                        print(f"✓ {file} → {folder_name}")
+                for root, _, files in os.walk(game_path):
+                    for file in files:
+                        if file.split('.')[0] == file_id:
+                            src_file = os.path.join(root, file)
+                            shutil.move(src_file, os.path.join(folder_path, file))
+                            print(f"✓ {file} → {folder_name}")
 
     except Exception as e:
         print(f"Error processing {config['sheet']}: {str(e)}")
