@@ -3,13 +3,12 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
     tabWidget(nullptr),
-    dockLeft(nullptr)
+    dockLeft(nullptr),
+    dockDown(nullptr)
 {
     this->window()->setGeometry(0, 0, 1000, 600);
     setCentralWidget(new QWidget);
     this->centralWidget();
-    QCheckBox *checkbox = new QCheckBox("show &CMD", centralWidget());
-    QPushButton *launch = new QPushButton("Launch Xenotools",centralWidget());
 
     menuFiles = menuBar()->addMenu("&Files");
     QMenu *recentFiles = menuFiles->addMenu("&Recent files");
@@ -52,6 +51,14 @@ MainWindow::MainWindow(QWidget *parent)
     dockLeft->setMaximumWidth(450);
     dockLeft->setFeatures(dockLeft->features() & QDockWidget::NoDockWidgetFeatures);
 
+    // Create the widget who contain the grid on CentralWidget
+    QWidget *gridCentral = new QWidget(centralWidget());
+    QGridLayout *layoutCentral = new QGridLayout(gridCentral);
+    QCheckBox *checkbox = new QCheckBox("show &CMD", gridCentral);
+        layoutCentral->addWidget(checkbox);
+    QPushButton *launch = new QPushButton("Launch Xenotools", gridCentral);
+        layoutCentral->addWidget(launch);
+
     // Create the QDockWidget Down
     dockDown = new QDockWidget("Status pannel", this);
     addDockWidget(Qt::BottomDockWidgetArea, dockDown);
@@ -59,28 +66,22 @@ MainWindow::MainWindow(QWidget *parent)
     dockDown->setMaximumWidth(450);
     dockDown->setFeatures(dockDown->features() & QDockWidget::NoDockWidgetFeatures);
 
-    // Create the widget who contain the grid
-    QWidget *grid = new QWidget();
-    dockDown->setWidget(grid);
+    // Create the widget who contain the grid on DockDown
+    QWidget *gridDown = new QWidget();
+    QGridLayout *layoutDown = new QGridLayout(gridDown);
+    dockDown->setWidget(gridDown);
 
-    // Create test buttons
-    QPushButton *button1 = new QPushButton("One", grid);
-    QPushButton *button2 = new QPushButton("Two", grid);
-    QPushButton *button3 = new QPushButton("Three", grid);
-    QPushButton *button4 = new QPushButton("Four", grid);
-    QPushButton *button5 = new QPushButton("Five", grid);
+    layoutDown->addWidget(new QPushButton("One", gridDown), 0, 0);
+    layoutDown->addWidget(new QPushButton("Two", gridDown), 0, 1);
+    layoutDown->addWidget(new QPushButton("Three", gridDown), 1, 0, 1, 2);  // RowSpan
+    layoutDown->addWidget(new QPushButton("Four", gridDown), 2, 0);
+    layoutDown->addWidget(new QPushButton("Five", gridDown), 2, 1);
 
-    // Create layout as a grid
-    QGridLayout *layout = new QGridLayout(grid);
-    layout->addWidget(button1, 0, 0);
-    layout->addWidget(button2, 0, 1);
-    layout->addWidget(button3, 1, 0, 1, 2);
-    layout->addWidget(button4, 2, 0);
-    layout->addWidget(button5, 2, 1);
+    dockDown->setWidget(gridDown);
+    addDockWidget(Qt::BottomDockWidgetArea, dockDown);
+
 
     // QProcess;
 }
 
-MainWindow::~MainWindow()
-{
-}
+MainWindow::~MainWindow(){}
