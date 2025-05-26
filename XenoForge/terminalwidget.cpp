@@ -1,4 +1,4 @@
-#include "terminalwidget.h"
+ #include "terminalwidget.h"
 #include <QScrollBar>
 #include <QVBoxLayout>
 
@@ -36,11 +36,9 @@ TerminalWidget::TerminalWidget(QWidget *parent)
     connect(commandInput, &QLineEdit::returnPressed, this, &TerminalWidget::onCommandEntered);
     connect(currentProcess, &QProcess::readyReadStandardOutput, this, &TerminalWidget::processReadyRead);
     connect(currentProcess, &QProcess::readyReadStandardError, this, &TerminalWidget::processReadyRead);
-    connect(currentProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-            this, &TerminalWidget::processFinished);
+    connect(currentProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &TerminalWidget::processFinished);
 
     commandInput->installEventFilter(this);
-
     consoleOutput->appendPlainText("Terminal - Ready");
     consoleOutput->appendPlainText("Enter 'help' to display some commands\n----------------------------------------\n");
 }
@@ -60,12 +58,10 @@ void TerminalWidget::executeCommand(const QString &command)
 
     consoleOutput->appendPlainText("$ " + command);
 
-    if (command == "clear") {
-        consoleOutput->clear();
-        return;
-    }
+    if (command == "clear") {consoleOutput->clear(); return;}
 
-    if (command == "help") {
+    if (command == "help")
+    {
         consoleOutput->appendPlainText(
             "\nAvailables commands:\n"
             "  clear       - Clear the console\n"
