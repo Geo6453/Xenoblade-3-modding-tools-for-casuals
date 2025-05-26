@@ -1,4 +1,4 @@
-QT       += core gui
+QT     += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -8,17 +8,23 @@ CONFIG += c++17
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+# Include QConsole with a relative path from XenoForge.pro
+include(QConsole/QConsole.pri)
+
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    terminalwidget.cpp\
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    terminalwidget.h
 
 FORMS +=
 
 TRANSLATIONS += \
     XenoForge_fr_FR.ts
+
 CONFIG += lrelease
 CONFIG += embed_translations
 

@@ -1,30 +1,39 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtWidgets>
+#include <QMainWindow>
+#include <QAction>
+#include <QMenu>
+#include <QCheckBox>
+#include <QPushButton>
+#include <QGridLayout>
 #include <QDesktopServices>
+#include <QMessageBox>
+#include <QApplication>
+#include <QMenuBar>
+#include <QDockWidget>
+#include "terminalwidget.h"
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
-public slots:
 
 private:
     QMenu *menuFiles;
     QMenu *menuEdition;
     QMenu *menuDisplay;
     QMenu *menuHelp;
-    QMenu *toggleTheme;
-    QDockWidget *dockWidget;
-    QWidget *dockWidgetContents;
+    QAction *toggleTheme;
 
-    QTabWidget *tabWidget; // Tabs of DockLeft
     QDockWidget *dockLeft; // Lateral Pannel
-    QDockWidget *dockDown; // Status Pannel
+    QDockWidget *dockDown;
+    TerminalWidget *terminalWidget;
+
+    QTabWidget *tabWidget;
+
 };
 #endif // MAINWINDOW_H

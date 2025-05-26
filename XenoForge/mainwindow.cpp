@@ -2,9 +2,15 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
-    tabWidget(nullptr),
+    menuFiles(nullptr),
+    menuEdition(nullptr),
+    menuDisplay(nullptr),
+    menuHelp(nullptr),
+    toggleTheme(nullptr),
     dockLeft(nullptr),
-    dockDown(nullptr)
+    dockDown(new QDockWidget("Terminal", this)),
+    terminalWidget(new TerminalWidget(this)),
+    tabWidget(nullptr)
 {
     this->window()->setGeometry(0, 0, 1000, 600);
     setCentralWidget(new QWidget);
@@ -21,10 +27,6 @@ MainWindow::MainWindow(QWidget *parent)
         connect(actionQuit, &QAction::triggered, qApp, &QApplication::quit);
 
     //menuEdition = menuBar()->addMenu("&Edition", this);
-
-    QAction *toggleTheme = new QAction("&Toggle Theme", this);
-
-    //connect(menuEdition, );
 
     menuHelp = menuBar()->addMenu("&Help");
     QAction *actionUpdate = new QAction("&Search Update", this);
@@ -43,6 +45,9 @@ MainWindow::MainWindow(QWidget *parent)
         menuHelp->addAction(actionXenoForge);
         connect(actionXenoForge, &QAction::triggered, this, []() {QDesktopServices::openUrl(QUrl("https://github.com/Geo6453/Xenoblade-3-modding-tools-for-casuals/main/README.md"));});
 
+    QAction *toggleTheme = new QAction("&Toggle Theme", this);
+        menuBar()->addAction(toggleTheme);
+
     // Add tabs on a QDockWidget
     dockLeft = new QDockWidget("Lateral Pannel", this);
     dockLeft->setWidget(tabWidget);
@@ -59,29 +64,8 @@ MainWindow::MainWindow(QWidget *parent)
     QPushButton *launch = new QPushButton("Launch Xenotools", gridCentral);
         layoutCentral->addWidget(launch);
 
-    // Create the QDockWidget Down
-    dockDown = new QDockWidget("Status pannel", this);
+    dockDown->setWidget(terminalWidget);
     addDockWidget(Qt::BottomDockWidgetArea, dockDown);
-    dockDown->setMinimumWidth(250);
-    dockDown->setMaximumWidth(450);
-    dockDown->setFeatures(dockDown->features() & QDockWidget::NoDockWidgetFeatures);
-
-    // Create the widget who contain the grid on DockDown
-    QWidget *gridDown = new QWidget();
-    QGridLayout *layoutDown = new QGridLayout(gridDown);
-    dockDown->setWidget(gridDown);
-
-    layoutDown->addWidget(new QPushButton("One", gridDown), 0, 0);
-    layoutDown->addWidget(new QPushButton("Two", gridDown), 0, 1);
-    layoutDown->addWidget(new QPushButton("Three", gridDown), 1, 0, 1, 2);  // RowSpan
-    layoutDown->addWidget(new QPushButton("Four", gridDown), 2, 0);
-    layoutDown->addWidget(new QPushButton("Five", gridDown), 2, 1);
-
-    dockDown->setWidget(gridDown);
-    addDockWidget(Qt::BottomDockWidgetArea, dockDown);
-
-
-    // QProcess;
 }
 
 MainWindow::~MainWindow(){}
