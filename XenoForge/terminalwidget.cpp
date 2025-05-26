@@ -8,12 +8,10 @@ TerminalWidget::TerminalWidget(QWidget *parent)
     commandInput(new QLineEdit(this)),
     currentProcess(new QProcess(this))
 {
-    // Configuration de l'interface
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
-    // Configuration de la console
     consoleOutput->setReadOnly(true);
     consoleOutput->setWordWrapMode(QTextOption::NoWrap);
     consoleOutput->setStyleSheet("QPlainTextEdit {"
@@ -24,8 +22,7 @@ TerminalWidget::TerminalWidget(QWidget *parent)
                                  "border: none;"
                                  "}");
 
-    // Configuration du champ de commande
-    commandInput->setPlaceholderText("Entrez une commande...");
+    commandInput->setPlaceholderText("Enter a command...");
     commandInput->setStyleSheet("QLineEdit {"
                                 "background: #222;"
                                 "color: white;"
@@ -33,11 +30,9 @@ TerminalWidget::TerminalWidget(QWidget *parent)
                                 "border: 1px solid #444;"
                                 "}");
 
-    // Assemblage
     layout->addWidget(consoleOutput);
     layout->addWidget(commandInput);
 
-    // Connexions
     connect(commandInput, &QLineEdit::returnPressed, this, &TerminalWidget::onCommandEntered);
     connect(currentProcess, &QProcess::readyReadStandardOutput, this, &TerminalWidget::processReadyRead);
     connect(currentProcess, &QProcess::readyReadStandardError, this, &TerminalWidget::processReadyRead);
@@ -46,14 +41,14 @@ TerminalWidget::TerminalWidget(QWidget *parent)
 
     commandInput->installEventFilter(this);
 
-    // Message de bienvenue
-    consoleOutput->appendPlainText("Terminal - Prêt");
-    consoleOutput->appendPlainText("Entrez 'help' pour l'aide\n----------------------------------------\n");
+    consoleOutput->appendPlainText("Terminal - Ready");
+    consoleOutput->appendPlainText("Enter 'help' to display some commands\n----------------------------------------\n");
 }
 
 TerminalWidget::~TerminalWidget()
 {
-    if (currentProcess->state() == QProcess::Running) {
+    if (currentProcess->state() == QProcess::Running)
+    {
         currentProcess->terminate();
         currentProcess->waitForFinished();
     }
@@ -72,20 +67,21 @@ void TerminalWidget::executeCommand(const QString &command)
 
     if (command == "help") {
         consoleOutput->appendPlainText(
-            "\nCommandes disponibles:\n"
-            "  clear       - Efface la console\n"
-            "  help        - Affiche cette aide\n"
-            "  exit        - Quitte l'application\n"
-            "\nCommandes système:\n"
-            "  Toutes les autres commandes sont exécutées dans le shell système\n");
+            "\nAvailables commands:\n"
+            "  clear       - Clear the console\n"
+            "  help        - Display some commands\n"
+            "  exit        - Close the software\n"
+            "\nSystem Commands:\n"
+            "  All other commands are executed on the system shell\n");
         return;
     }
 
     currentProcess->setWorkingDirectory(QDir::currentPath());
     currentProcess->start("cmd.exe", QStringList() << "/C" << command);
 
-    if (!currentProcess->waitForStarted(1000)) {
-        consoleOutput->appendPlainText("Erreur: impossible d'exécuter la commande");
+    if (!currentProcess->waitForStarted(1000))
+    {
+        consoleOutput->appendPlainText("Error: This command cannot be executed");
     }
 }
 
@@ -99,7 +95,8 @@ void TerminalWidget::onCommandEntered()
     QString command = commandInput->text().trimmed();
     commandInput->clear();
 
-    if (!command.isEmpty()) {
+    if (!command.isEmpty())
+    {
         executeCommand(command);
         emit commandExecuted(command);
     }
@@ -115,19 +112,17 @@ void TerminalWidget::processReadyRead()
 void TerminalWidget::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     QString status = exitStatus == QProcess::CrashExit ?
-                         "\n[Processus terminé anormalement]" :
-                         QString("\n[Processus terminé - Code: %1]").arg(exitCode);
+                         "\n[The process did not complete normally]" :
+                         QString("\n[Process end]").arg(exitCode);
     consoleOutput->appendPlainText(status + "\n----------------------------------------\n");
 }
 
 bool TerminalWidget::eventFilter(QObject *obj, QEvent *event)
 {
-    if (obj == commandInput && event->type() == QEvent::KeyPress) {
+    if (obj == commandInput && event->type() == QEvent::KeyPress)
+    {
         QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-        if (keyEvent->key() == Qt::Key_Up || keyEvent->key() == Qt::Key_Down) {
-            // Gestion de l'historique
-            return true;
-        }
+        if (keyEvent->key() == Qt::Key_Up || keyEvent->key() == Qt::Key_Down) {return true;}
     }
     return QWidget::eventFilter(obj, event);
 }

@@ -66,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     dockDown->setWidget(terminalWidget);
     addDockWidget(Qt::BottomDockWidgetArea, dockDown);
+    dockDown->setFeatures(dockDown->features() & ~QDockWidget::DockWidgetFloatable & ~QDockWidget::DockWidgetClosable);
 }
 
 MainWindow::~MainWindow(){}
