@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "centralLayout.h"
 #include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -62,42 +63,20 @@ MainWindow::MainWindow(QWidget *parent)
     QGridLayout *layoutCentral = new QGridLayout(gridCentral);
 
     QCheckBox *checkbox = new QCheckBox("show &CMD", gridCentral);
-    layoutCentral->addWidget(checkbox, 0, 0);
+    layoutCentral->addWidget(checkbox, 0, 4);
 
     QPushButton *launch = new QPushButton("Launch Xenotools", gridCentral);
-    layoutCentral->addWidget(launch, 0, 1);
+    layoutCentral->addWidget(launch, 0, 5);
 
-    QLabel *XC_label    = new QLabel(gridCentral);
-    QLabel *XCDE_label  = new QLabel(gridCentral);
-    QLabel *XCFR_label  = new QLabel(gridCentral);
-    QLabel *XC2_label   = new QLabel(gridCentral);
-    QLabel *Torna_label = new QLabel(gridCentral);
-    QLabel *XC3_label   = new QLabel(gridCentral);
-    QLabel *XC3FR_label = new QLabel(gridCentral);
-    QLabel *XCX_label   = new QLabel(gridCentral);
-    QLabel *XCXDE_label = new QLabel(gridCentral);
-
-    // Charger et redimensionner les icônes
-    XC_label   ->setPixmap(QPixmap(":/logos/Xenoblade 1.png")                     .scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    XCDE_label ->setPixmap(QPixmap(":/logos/Xenoblade 1 - Definitive Edition.png").scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    XCFR_label ->setPixmap(QPixmap(":/logos/Xenoblade 1 - Future Connected.png")  .scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    XC2_label  ->setPixmap(QPixmap(":/logos/Xenoblade 2.png")                     .scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    Torna_label->setPixmap(QPixmap(":/logos/Xenoblade 2 - Torna.png")             .scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    XC3_label  ->setPixmap(QPixmap(":/logos/Xenoblade 3.png")                     .scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    XC3FR_label->setPixmap(QPixmap(":/logos/Xenoblade 3 - Future Redeemed.png")   .scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    XCX_label  ->setPixmap(QPixmap(":/logos/Xenoblade X.png")                     .scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    XCXDE_label->setPixmap(QPixmap(":/logos/Xenoblade X - Definitive Edition.png").scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-
-    // Ajout au layout
-    layoutCentral->addWidget(XC_label,    1, 0);
-    layoutCentral->addWidget(XCDE_label,  1, 1);
-    layoutCentral->addWidget(XCFR_label,  1, 2);
-    layoutCentral->addWidget(XC2_label,   2, 0);
-    layoutCentral->addWidget(Torna_label, 2, 1);
-    layoutCentral->addWidget(XC3_label,   3, 0);
-    layoutCentral->addWidget(XC3FR_label, 3, 1);
-    layoutCentral->addWidget(XCX_label,   4, 0);
-    layoutCentral->addWidget(XCXDE_label, 4, 1);
+    createIconLabel(":/logos/Xenoblade 1.png"                     , gridCentral, layoutCentral, 1, 0);
+    createIconLabel(":/logos/Xenoblade 1 - Definitive Edition.png", gridCentral, layoutCentral, 1, 1);
+    createIconLabel(":/logos/Xenoblade 1 - Future Connected.png"  , gridCentral, layoutCentral, 1, 2);
+    createIconLabel(":/logos/Xenoblade 2.png"                     , gridCentral, layoutCentral, 2, 0);
+    createIconLabel(":/logos/Xenoblade 2 - Torna.png"             , gridCentral, layoutCentral, 2, 1);
+    createIconLabel(":/logos/Xenoblade 3.png"                     , gridCentral, layoutCentral, 3, 0);
+    createIconLabel(":/logos/Xenoblade 3 - Future Redeemed.png"   , gridCentral, layoutCentral, 3, 1);
+    createIconLabel(":/logos/Xenoblade X.png"                     , gridCentral, layoutCentral, 4, 0);
+    createIconLabel(":/logos/Xenoblade X - Definitive Edition.png", gridCentral, layoutCentral, 4, 1);
 
     dockDown->setWidget(terminalWidget);
     addDockWidget(Qt::BottomDockWidgetArea, dockDown);
