@@ -5,8 +5,7 @@
 TerminalWidget::TerminalWidget(QWidget *parent)
     : QWidget(parent),
     consoleOutput(new QPlainTextEdit(this)),
-    commandInput(new QLineEdit(this)),
-    currentProcess(new QProcess(this))
+    commandInput(new QLineEdit(this))
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -33,12 +32,6 @@ TerminalWidget::TerminalWidget(QWidget *parent)
     layout->addWidget(consoleOutput);
     layout->addWidget(commandInput);
 
-    connect(commandInput, &QLineEdit::returnPressed, this, &TerminalWidget::onCommandEntered);
-    connect(currentProcess, &QProcess::readyReadStandardOutput, this, &TerminalWidget::processReadyRead);
-    connect(currentProcess, &QProcess::readyReadStandardError, this, &TerminalWidget::processReadyRead);
-    connect(currentProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &TerminalWidget::processFinished);
-
-    commandInput->installEventFilter(this);
     consoleOutput->appendPlainText("Terminal - Ready");
     consoleOutput->appendPlainText("Enter 'help' to display some commands\n----------------------------------------\n");
 }
@@ -72,53 +65,6 @@ void TerminalWidget::executeCommand(const QString &command)
         return;
     }
 
-    currentProcess->setWorkingDirectory(QDir::currentPath());
-    currentProcess->start("cmd.exe", QStringList() << "/C" << command);
-
-    if (!currentProcess->waitForStarted(1000))
-    {
-        consoleOutput->appendPlainText("Error: This command cannot be executed");
-    }
-}
-
-void TerminalWidget::clear()
-{
-    consoleOutput->clear();
-}
-
-void TerminalWidget::onCommandEntered()
-{
-    QString command = commandInput->text().trimmed();
-    commandInput->clear();
-
-    if (!command.isEmpty())
-    {
-        executeCommand(command);
-        emit commandExecuted(command);
-    }
-}
-
-void TerminalWidget::processReadyRead()
-{
-    consoleOutput->appendPlainText(QString::fromLocal8Bit(currentProcess->readAllStandardOutput()).trimmed());
-    consoleOutput->appendPlainText(QString::fromLocal8Bit(currentProcess->readAllStandardError()).trimmed());
-    consoleOutput->verticalScrollBar()->setValue(consoleOutput->verticalScrollBar()->maximum());
-}
-
-void TerminalWidget::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
-{
-    QString status = exitStatus == QProcess::CrashExit ?
-                         "\n[The process did not complete normally]" :
-                         QString("\n[Process end]").arg(exitCode);
-    consoleOutput->appendPlainText(status + "\n----------------------------------------\n");
-}
-
-bool TerminalWidget::eventFilter(QObject *obj, QEvent *event)
-{
-    if (obj == commandInput && event->type() == QEvent::KeyPress)
-    {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-        if (keyEvent->key() == Qt::Key_Up || keyEvent->key() == Qt::Key_Down) {return true;}
-    }
-    return QWidget::eventFilter(obj, event);
+    currentProcess->setWorkingDirectory("C:\\");
+    currentProcess->start("cmd.exe", QStringList() << "/A /H:ON /K" << command);
 }

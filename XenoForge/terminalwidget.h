@@ -1,7 +1,6 @@
 #ifndef TERMINALWIDGET_H
 #define TERMINALWIDGET_H
 
-#include "qconsole.h"
 #include <QWidget>
 #include <QPlainTextEdit>
 #include <QLineEdit>
@@ -20,15 +19,13 @@ public:
     void clear();
 
 signals:
-    void commandExecuted(const QString &command);
+
 
 private slots:
-    void onCommandEntered();
-    void processReadyRead();
-    void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
+
 
 protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
+
 
 private:
     QPlainTextEdit *consoleOutput;
