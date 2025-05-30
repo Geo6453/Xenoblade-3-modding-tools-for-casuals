@@ -36,14 +36,7 @@ TerminalWidget::TerminalWidget(QWidget *parent)
     consoleOutput->appendPlainText("Enter 'help' to display some commands\n----------------------------------------\n");
 }
 
-TerminalWidget::~TerminalWidget()
-{
-    if (currentProcess->state() == QProcess::Running)
-    {
-        currentProcess->terminate();
-        currentProcess->waitForFinished();
-    }
-}
+TerminalWidget::~TerminalWidget() {}
 
 void TerminalWidget::executeCommand(const QString &command)
 {

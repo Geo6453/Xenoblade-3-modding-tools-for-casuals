@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -31,10 +32,10 @@ MainWindow::MainWindow(QWidget *parent)
     menuHelp = menuBar()->addMenu("&Help");
     QAction *actionUpdate = new QAction("&Search Update", this);
         menuHelp->addAction(actionUpdate);
-        connect(actionUpdate, &QAction::triggered, this, []() {QDesktopServices::openUrl(QUrl("https://github.com/Geo6453/Xenoblade-3-modding-tools-for-casuals/releases"));});
+        connect(actionUpdate, &QAction::triggered, this, []() {QDesktopServices::openUrl(QUrl("https://github.com/Geo6453/XenoForge/releases"));});
     QAction *actionRepoGithub = new QAction("&Github Repo", this);
         menuHelp->addAction(actionRepoGithub);
-        connect(actionRepoGithub, &QAction::triggered, this, []() {QDesktopServices::openUrl(QUrl("https://github.com/Geo6453/Xenoblade-3-modding-tools-for-casuals"));});
+        connect(actionRepoGithub, &QAction::triggered, this, []() {QDesktopServices::openUrl(QUrl("https://github.com/Geo6453/XenoForge"));});
     QAction *actionDiscord = new QAction("&Discord Server", this);
         menuHelp->addAction(actionDiscord);
         connect(actionDiscord, &QAction::triggered, this, []() {QDesktopServices::openUrl(QUrl("https://discord.gg/27Wz4QB"));});
@@ -43,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
         connect(actionQt, &QAction::triggered, this, [this] () {QMessageBox::aboutQt(this);});
     QAction *actionXenoForge = new QAction("About &XenoForge", this);
         menuHelp->addAction(actionXenoForge);
-        connect(actionXenoForge, &QAction::triggered, this, []() {QDesktopServices::openUrl(QUrl("https://github.com/Geo6453/Xenoblade-3-modding-tools-for-casuals/main/README.md"));});
+        connect(actionXenoForge, &QAction::triggered, this, []() {QDesktopServices::openUrl(QUrl("https://github.com/Geo6453/XenoForge/main/README.md"));});
 
     QAction *toggleTheme = new QAction("&Toggle Theme", this);
         menuBar()->addAction(toggleTheme);
@@ -56,13 +57,15 @@ MainWindow::MainWindow(QWidget *parent)
     dockLeft->setMaximumWidth(450);
     dockLeft->setFeatures(dockLeft->features() & QDockWidget::NoDockWidgetFeatures);
 
-    // Create the widget who contain the grid on CentralWidget
+    // Create the widget that contain the grid on CentralWidget
     QWidget *gridCentral = new QWidget(centralWidget());
     QGridLayout *layoutCentral = new QGridLayout(gridCentral);
+
     QCheckBox *checkbox = new QCheckBox("show &CMD", gridCentral);
-        layoutCentral->addWidget(checkbox);
+    layoutCentral->addWidget(checkbox, 0, 0);
+
     QPushButton *launch = new QPushButton("Launch Xenotools", gridCentral);
-        layoutCentral->addWidget(launch);
+    layoutCentral->addWidget(launch, 1, 0);
 
     dockDown->setWidget(terminalWidget);
     addDockWidget(Qt::BottomDockWidgetArea, dockDown);
