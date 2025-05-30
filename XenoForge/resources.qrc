@@ -1,13 +1,13 @@
 <RCC>
     <qresource prefix="/">
-        <file>logos/Article_icon_-_Future_Connected.png</file>
-        <file>logos/Article_icon_-_Future_Redeemed.png</file>
-        <file>logos/Article_icon_-_Torna_The_Golden_Country.png</file>
-        <file>logos/Article_icon_-_Xenoblade_Chronicles.png</file>
-        <file>logos/Article_icon_-_Xenoblade_Chronicles_2.png</file>
-        <file>logos/Article_icon_-_Xenoblade_Chronicles_3.png</file>
-        <file>logos/Article_icon_-_Xenoblade_Chronicles_Definitive_Edition.png</file>
-        <file>logos/Article_icon_-_Xenoblade_Chronicles_X.png</file>
-        <file>logos/Article_icon_-_Xenoblade_Chronicles_X_Definitive_Edition.png</file>
+        <file>logos/Xenoblade 1 - Definitive Edition.png</file>
+        <file>logos/Xenoblade 1 - Future Connected.png</file>
+        <file>logos/Xenoblade 1.png</file>
+        <file>logos/Xenoblade 2 - Torna.png</file>
+        <file>logos/Xenoblade 2.png</file>
+        <file>logos/Xenoblade 3 - Future Redeemed.png</file>
+        <file>logos/Xenoblade 3.png</file>
+        <file>logos/Xenoblade X - Definitive Edition.png</file>
+        <file>logos/Xenoblade X.png</file>
     </qresource>
 </RCC>
