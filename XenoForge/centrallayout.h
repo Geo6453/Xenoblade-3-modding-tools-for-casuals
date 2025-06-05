@@ -8,7 +8,7 @@
 #include <QWidget>
 #include <Qt>
 
-QLabel* createIconLabel(const QString &path, QWidget *parent, QGridLayout *layout, int row, int col);
+QLabel* createIconLabel(const QString &path, QWidget *parent, QGridLayout *layout, int row, int col, bool scale = true);
 
 class centralLayout : public QWidget
 {

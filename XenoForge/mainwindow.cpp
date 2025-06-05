@@ -9,10 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     menuDisplay(nullptr),
     menuHelp(nullptr),
     toggleTheme(nullptr),
-    dockLeft(nullptr),
     dockDown(new QDockWidget("Terminal", this)),
-    terminalWidget(new TerminalWidget(this)),
-    tabWidget(nullptr)
+    terminalWidget(new TerminalWidget(this))
 {
     this->window()->setGeometry(0, 0, 1000, 600);
     setCentralWidget(new QWidget);
@@ -50,33 +48,17 @@ MainWindow::MainWindow(QWidget *parent)
     QAction *toggleTheme = new QAction("&Toggle Theme", this);
         menuBar()->addAction(toggleTheme);
 
-    // Add tabs on a QDockWidget
-    dockLeft = new QDockWidget("Lateral Pannel", this);
-    dockLeft->setWidget(tabWidget);
-    addDockWidget(Qt::LeftDockWidgetArea, dockLeft);
-    dockLeft->setMinimumWidth(250);
-    dockLeft->setMaximumWidth(450);
-    dockLeft->setFeatures(dockLeft->features() & QDockWidget::NoDockWidgetFeatures);
-
     // Create the widget that contain the grid on CentralWidget
     QWidget *gridCentral = new QWidget(centralWidget());
-    QGridLayout *layoutCentral = new QGridLayout(gridCentral);
+    QGridLayout *firstLayout = new QGridLayout(gridCentral);
 
-    QCheckBox *checkbox = new QCheckBox("show &CMD", gridCentral);
-    layoutCentral->addWidget(checkbox, 0, 4);
+    createIconLabel(":/logos/XC1_logo.png", gridCentral, firstLayout, 0, 0);
+    createIconLabel(":/logos/XC2_logo.png", gridCentral, firstLayout, 0, 1);
+    createIconLabel(":/logos/XC3_logo.png", gridCentral, firstLayout, 0, 2);
+    createIconLabel(":/logos/XCX_logo.png", gridCentral, firstLayout, 0, 3);
 
-    QPushButton *launch = new QPushButton("Launch Xenotools", gridCentral);
-    layoutCentral->addWidget(launch, 0, 5);
-
-    createIconLabel(":/logos/Xenoblade 1.png"                     , gridCentral, layoutCentral, 1, 0);
-    createIconLabel(":/logos/Xenoblade 1 - Definitive Edition.png", gridCentral, layoutCentral, 1, 1);
-    createIconLabel(":/logos/Xenoblade 1 - Future Connected.png"  , gridCentral, layoutCentral, 1, 2);
-    createIconLabel(":/logos/Xenoblade 2.png"                     , gridCentral, layoutCentral, 2, 0);
-    createIconLabel(":/logos/Xenoblade 2 - Torna.png"             , gridCentral, layoutCentral, 2, 1);
-    createIconLabel(":/logos/Xenoblade 3.png"                     , gridCentral, layoutCentral, 3, 0);
-    createIconLabel(":/logos/Xenoblade 3 - Future Redeemed.png"   , gridCentral, layoutCentral, 3, 1);
-    createIconLabel(":/logos/Xenoblade X.png"                     , gridCentral, layoutCentral, 4, 0);
-    createIconLabel(":/logos/Xenoblade X - Definitive Edition.png", gridCentral, layoutCentral, 4, 1);
+    //récup taille de la fenetre
+    //hauteur de l'écran - dockBas -
 
     dockDown->setWidget(terminalWidget);
     addDockWidget(Qt::BottomDockWidgetArea, dockDown);

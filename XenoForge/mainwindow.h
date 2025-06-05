@@ -29,11 +29,7 @@ private:
     QMenu *menuHelp;
     QAction *toggleTheme;
 
-    QDockWidget *dockLeft; // Lateral Pannel
     QDockWidget *dockDown;
     TerminalWidget *terminalWidget;
-
-    QTabWidget *tabWidget;
-
 };
 #endif // MAINWINDOW_H

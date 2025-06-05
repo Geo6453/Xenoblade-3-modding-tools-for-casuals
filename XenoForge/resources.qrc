@@ -9,5 +9,14 @@
         <file>logos/Xenoblade 3.png</file>
         <file>logos/Xenoblade X - Definitive Edition.png</file>
         <file>logos/Xenoblade X.png</file>
+        <file>save.json</file>
+        <file>logos/XC1_logo_small.png</file>
+        <file>logos/XC2_logo_small.png</file>
+        <file>logos/XC3_logo_small.png</file>
+        <file>logos/XCX_logo_small.png</file>
+        <file>logos/XC1_logo.png</file>
+        <file>logos/XC2_logo.png</file>
+        <file>logos/XC3_logo.png</file>
+        <file>logos/XCX_logo.png</file>
     </qresource>
 </RCC>
