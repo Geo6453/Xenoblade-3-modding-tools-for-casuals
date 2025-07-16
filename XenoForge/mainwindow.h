@@ -24,10 +24,7 @@ public:
 
 private:
     QMenu *menuFiles;
-    QMenu *menuEdition;
-    QMenu *menuDisplay;
     QMenu *menuHelp;
-    QAction *toggleTheme;
 
     QDockWidget *dockDown;
     TerminalWidget *terminalWidget;

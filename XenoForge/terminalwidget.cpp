@@ -1,11 +1,11 @@
- #include "terminalwidget.h"
-#include <QScrollBar>
+#include "terminalwidget.h"
 #include <QVBoxLayout>
 
 TerminalWidget::TerminalWidget(QWidget *parent)
     : QWidget(parent),
     consoleOutput(new QPlainTextEdit(this)),
-    commandInput(new QLineEdit(this))
+    commandInput(new QLineEdit(this)),
+    currentProcess(new QProcess(this))
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -60,4 +60,9 @@ void TerminalWidget::executeCommand(const QString &command)
 
     currentProcess->setWorkingDirectory("C:\\");
     currentProcess->start("cmd.exe", QStringList() << "/A /H:ON /K" << command);
+}
+
+void TerminalWidget::clear()
+{
+    consoleOutput->clear();
 }

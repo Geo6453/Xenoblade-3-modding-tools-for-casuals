@@ -5,7 +5,6 @@
 #include <QPlainTextEdit>
 #include <QLineEdit>
 #include <QProcess>
-#include <QDir>
 
 class TerminalWidget : public QWidget
 {
